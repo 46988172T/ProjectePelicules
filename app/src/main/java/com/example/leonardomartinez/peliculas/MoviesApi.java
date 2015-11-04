@@ -1,16 +1,17 @@
-package com.example.leonardomartinez.peliculas.Service;
+package com.example.leonardomartinez.peliculas;
 
-import android.util.Log;
-import android.widget.ArrayAdapter;
+
 
 import com.example.leonardomartinez.peliculas.API.Example;
 import com.example.leonardomartinez.peliculas.API.Result;
+
+import android.widget.ArrayAdapter;
 import java.util.ArrayList;
+import retrofit.Call;
+import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
-import retrofit.Call;
-import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -18,23 +19,22 @@ import retrofit.http.Query;
 /**
  * Created by 46988172t on 04/11/15.
  */
-interface MovieService {  //interfaz para obtener datos de Popular y TopRated
+interface ServiceMovie {  //interfaz para obtener datos de Popular y TopRated
 
     @GET("popular")
-    Call<MovieService> Popular(
+    Call<Example> Popular(
             @Query("api_key") String api_key);
 
     @GET("top_rated")
-    Call<MovieService> TopRated(
+    Call<Example> TopRated(
             @Query("api_key") String api_key);
-
 
 }
 
 public class MoviesApi {
 
 
-    public static MovieService apiService;
+    public static ServiceMovie apiService;
     public static String BASE_URL = "https://api.themoviedb.org/3/movie/";
     public static String APPID = "a6023f741766a15020d9a29b13a476c8";
 
@@ -43,21 +43,20 @@ public class MoviesApi {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiService = retrofit.create(MovieService.class);
+        apiService = retrofit.create(ServiceMovie.class);
     }
 
     public void Populares(final ArrayAdapter<String> adapter) {
 
-        Call<MovieService> getPelicula = apiService.Popular(APPID);
+        Call<Example> getPelicula = apiService.Popular(APPID);
 
-        getPelicula.enqueue(new Callback<MovieService>() {
+        getPelicula.enqueue(new Callback<Example>() {
 
             @Override
-            public void onResponse(Response<MovieService> response, Retrofit retrofit) {
-
+            public void onResponse(Response<Example> response, Retrofit retrofit) {
 
                 ArrayList<String> peliDescripcion = new ArrayList<>();
-                MovieService pelicula = response.body();
+                Example pelicula = response.body();
 
                 for (Result list : pelicula.getResults()) {
                     String filmDescription = getFilmDescription(list);
@@ -76,18 +75,18 @@ public class MoviesApi {
         });
     }
 
-    public void Populares(final ArrayAdapter<String> adapter) {
+    public void TopRated(final ArrayAdapter<String> adapter) {
 
-        Call<MovieService> getPelicula = apiService.TopRated(APPID);
+        Call<Example> getPelicula = apiService.TopRated(APPID);
 
-        getPelicula.enqueue(new Callback<MovieService>() {
+        getPelicula.enqueue(new Callback<Example>() {
             @Override
-            public void onResponse(Response<MovieService> response, Retrofit retrofit) {
+            public void onResponse(Response<Example> response, Retrofit retrofit) {
 
                 ArrayList<String> peliDescripcion = new ArrayList<>();
-                MovieService film = response.body();
+                Example pelicula = response.body();
 
-                for (Result list : film.getResults()) {
+                for (Result list : pelicula.getResults() ){
                     String filmDescription = getFilmDescription(list);
                     peliDescripcion.add(filmDescription);
                 }
@@ -106,7 +105,7 @@ public class MoviesApi {
 
         String titulo = list.getTitle();
         int infoPopular = Math.round(list.getPopularity());
-        String sinopsis = list.getOverview();
+        String resumen = list.getOverview();
         boolean adulto = list.getAdult();
         String edadRecomendada;
 
@@ -117,7 +116,7 @@ public class MoviesApi {
         }
 
         return String.format("Title: %s\nSynopsis: %s\nAdult: %s\nPopularity: %s\n",
-                titulo, sinopsis, edadRecomendada, infoPopular
+                titulo, resumen, edadRecomendada, infoPopular
         );
     }
 
