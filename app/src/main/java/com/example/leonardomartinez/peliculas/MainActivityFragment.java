@@ -15,14 +15,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
-    private ListView movies;
-    private ArrayList<String> arraymovies;
+    private ListView moviesLw;
+    private ArrayList<String> arrayMovies;
     private ArrayAdapter<String> adaptador;
+    String pelis[] = {"Peli1", "Peli2", "Peli3", "Peli4", "Peli5", "Peli6", "Peli7", "Peli8", "Peli9", "Peli10"}; //datos por defecto
+
     public MainActivityFragment() {
     }
 
@@ -32,20 +35,25 @@ public class MainActivityFragment extends Fragment {
         setHasOptionsMenu(true);
         View fragment = inflater.inflate(R.layout.fragment_main, container, false);
 
-        movies = (ListView) fragment.findViewById(R.id.lista);
-        arraymovies = new ArrayList<String>();
+        //Binding del lvw de películas
+        moviesLw = (ListView) fragment.findViewById(R.id.lista);
 
-        adaptador = new ArrayAdapter<String>(getContext(),R.layout.segundo, R.id.textView,arraymovies);
-        movies.setAdapter(adaptador);
+        //Creamos el arrayList de peliculas y lo llenamos con los datos por defecto
+        arrayMovies = new ArrayList(Arrays.asList(pelis));
 
-        movies.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        //Creamos el adaptador y setteamos el    lvw de películas
+        adaptador = new ArrayAdapter<String>(getContext(),R.layout.segundo, R.id.textView,arrayMovies);
+        moviesLw.setAdapter(adaptador);
+
+        //Para una pulsación prolongada utilizamos este método.
+        /*moviesLw.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-                arraymovies.remove(position);
+                arrayMovies.remove(position);
                 adaptador.notifyDataSetChanged();
                 return true;
             }
-        });
+        });*/
 
 
 
