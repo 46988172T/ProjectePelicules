@@ -8,10 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ public class MainActivityFragment extends Fragment {
     private ListView moviesLw;
     private ArrayList<String> arrayMovies;
     private ArrayAdapter<String> adaptador;
-    String pelis[] = {"Peli1", "Peli2", "Peli3", "Peli4", "Peli5", "Peli6", "Peli7", "Peli8", "Peli9", "Peli10"}; //datos por defecto
+    String pelis[] = {"Peli1", "Peli2", "Peli3", "Peli4", "PeliJJJJJJ", "Peli6", "Peli7", "Peli8", "Peli9", "Peli10"}; //datos por defecto
 
     public MainActivityFragment() {
     }
@@ -65,6 +62,8 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu, inflater);
+
         inflater.inflate(R.menu.fragment, menu);
 
     }
