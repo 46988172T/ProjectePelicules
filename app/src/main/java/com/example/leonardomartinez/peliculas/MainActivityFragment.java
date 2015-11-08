@@ -15,15 +15,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Creamos un fragment ya que lo haremos compatible con tabletas Android.
  */
 public class MainActivityFragment extends Fragment {
-    private ListView moviesLw;
-    private ArrayList<String> arrayMovies;
-    private ArrayAdapter<String> adaptador;
-    String pelis[] = {"Peli1", "Peli2", "Peli3", "Peli4", "PeliJJJJJJ", "Peli6", "Peli7", "Peli8", "Peli9", "Peli10"}; //datos por defecto
+    private ListView moviesLw; // este es el ListView donde visualizaremos los datos.
+    private ArrayList<String> arrayMovies; //aqui guardaremos los datos.
+    private ArrayAdapter<String> adaptador; // el adaptador para el ListView
+    String pelis[] = {"Pelicula A", "Pelicula B", "Pelicula C", "Pelicula D", "Pelicula E", "Pelicula F", "Pelicula G", "Pelicula H",
+            "Pelicula I", "Pelicula J"}; //datos por defecto
 
-    public MainActivityFragment() {
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MoviesApi pelicula = new MoviesApi();
+        pelicula.Populares(adaptador);
     }
 
     @Override
@@ -38,23 +44,20 @@ public class MainActivityFragment extends Fragment {
         //Creamos el arrayList de peliculas y lo llenamos con los datos por defecto
         arrayMovies = new ArrayList(Arrays.asList(pelis));
 
-        //Creamos el adaptador y setteamos el    lvw de películas
-        adaptador = new ArrayAdapter<String>(getContext(),R.layout.segundo, R.id.textView,arrayMovies);
+        //Creamos el adaptador y setteamos el ListView de películas, con esto 'traducimos' los datos para que sean visibles en el ListView
+        adaptador = new ArrayAdapter<String>(getContext(), R.layout.segundo, R.id.textView, arrayMovies);
         moviesLw.setAdapter(adaptador);
 
-        //Para una pulsación prolongada utilizamos este método.
-        /*moviesLw.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-                arrayMovies.remove(position);
-                adaptador.notifyDataSetChanged();
-                return true;
-            }
-        });*/
-
-
-
-
+        //Para una pulsación prolongada utilizamos este método. De momento no utilizada en esta aplicación,
+        //puede ser util en caso de crear listas de favoritos (para poder borrar) o quizás alguna otra utilidad.
+            /*moviesLw.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
+                    arrayMovies.remove(position);
+                    adaptador.notifyDataSetChanged();
+                    return true;
+                }
+            });*/
 
         return fragment;
     }
@@ -79,7 +82,7 @@ public class MainActivityFragment extends Fragment {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.refresh){
+        if (id == R.id.refresh) {
 
             return true;
         }
