@@ -31,7 +31,7 @@ interface ServiceMovie {  //interfaz para obtener datos de Popular y TopRated
 
 }
 
-public class MoviesApi { //aqui es donde creamos toda la conexion a la API.
+public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
 
 
     public static ServiceMovie apiService;
