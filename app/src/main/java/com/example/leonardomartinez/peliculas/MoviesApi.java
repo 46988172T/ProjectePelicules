@@ -47,7 +47,7 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
                                                             // le hemos indicado en la interfaz.
     }
 
-    public void Populares(final ArrayAdapter<String> adapter) {
+    public void showPopular(final ArrayAdapter<String> adapter) {
 
         Call<Example> getPelicula = apiService.Popular(API_ID); //llamada para que nos dé las peliculas más populares
 
@@ -76,7 +76,7 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
         });
     }
 
-    public void TopRated(final ArrayAdapter<String> adapter) {
+    public void showTopRated(final ArrayAdapter<String> adapter) {
 
         Call<Example> getPelicula = apiService.TopRated(API_ID);//llamada para que nos dé las peliculas más valoradas
 

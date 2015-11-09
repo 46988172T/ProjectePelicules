@@ -1,5 +1,7 @@
 package com.example.leonardomartinez.peliculas;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ public class MainActivityFragment extends Fragment {
     public void onStart() {
         super.onStart();
         MoviesApi pelicula = new MoviesApi();
-        pelicula.Populares(adaptador);
+        pelicula.showPopular(adaptador); //enseña por defecto las peliculas populares
     }
 
     @Override
@@ -82,12 +84,24 @@ public class MainActivityFragment extends Fragment {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.refresh) {
-
+        if (id == R.id.refresh) { //cuando le damos a refresh, el metodo refresh() que esta abajo se ejecuta
+            refresh();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void refresh() {
+        MoviesApi pelicula = new MoviesApi();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        if (preferences.getString("category_list","0").equals("0")){ //si solicitamos ver las populares (0) nos las enseña (como en el onStart() )
+            pelicula.showPopular(adaptador);
+        }else if (preferences.getString("category_list","0").equals("1")) {//si solicitamos ver las más valoradas (1) nos las enseña (como en el onStart(), con el adaptador)
+            pelicula.showTopRated(adaptador);
+        }
     }
 }
 
