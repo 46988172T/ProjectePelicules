@@ -70,7 +70,7 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
             }
 
             @Override
-            public void onFailure(Throwable t) {// necesario para que el callback no de errores. Informa de fallo
+            public void onFailure(Throwable t) { //necesario para que el callback no de errores. Informa de fallo.
 
             }
         });
