@@ -5,8 +5,11 @@ package com.example.leonardomartinez.peliculas;
 import com.example.leonardomartinez.peliculas.API.Example;
 import com.example.leonardomartinez.peliculas.API.Result;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -65,13 +68,12 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
                 }
 
                 adapter.clear();
-
                 adapter.addAll(peliDescripcion);
             }
 
             @Override
             public void onFailure(Throwable t) { //necesario para que el callback no de errores. Informa de fallo.
-
+                Log.e("Update Films", Arrays.toString(t.getStackTrace()));
             }
         });
     }
@@ -97,13 +99,12 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
 
             @Override
             public void onFailure(Throwable t) { // necesario para que el callback no de errores. Informa de fallo
-
+                Log.e("Update Films", Arrays.toString(t.getStackTrace()));
             }
         });
     }
 
     private String getFilmDescription(Result list) { //con este metodo recibimos toda la información de la película que necesitamos.
-
 
         String title = list.getTitle(); // título
         int popular = Math.round(list.getPopularity()); //la popularidad de la película
