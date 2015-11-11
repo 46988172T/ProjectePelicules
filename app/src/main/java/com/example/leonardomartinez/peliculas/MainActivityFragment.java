@@ -30,8 +30,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        MoviesApi pelicula = new MoviesApi();
-        pelicula.showPopular(adaptador); //enseña por defecto las peliculas populares
+        refresh();
     }
 
     @Override
@@ -97,9 +96,9 @@ public class MainActivityFragment extends Fragment {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        if (preferences.getString("category_list","0").equals("0")){ //si solicitamos ver las populares (0) nos las enseña (como en el onStart() )
+        if (preferences.getString("example_list","0").equals("0")){ //si solicitamos ver las populares (0) nos las enseña (como en el onStart() )
             pelicula.showPopular(adaptador);
-        }else if (preferences.getString("category_list","0").equals("1")) {//si solicitamos ver las más valoradas (1) nos las enseña (como en el onStart(), con el adaptador)
+        }else if (preferences.getString("example_list","0").equals("1")) {//si solicitamos ver las más valoradas (1) nos las enseña (como en el onStart(), con el adaptador)
             pelicula.showTopRated(adaptador);
         }
     }
