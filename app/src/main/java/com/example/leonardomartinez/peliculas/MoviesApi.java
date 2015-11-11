@@ -5,8 +5,11 @@ package com.example.leonardomartinez.peliculas;
 import com.example.leonardomartinez.peliculas.API.Example;
 import com.example.leonardomartinez.peliculas.API.Result;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -47,7 +50,7 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
                                                             // le hemos indicado en la interfaz.
     }
 
-    public void Populares(final ArrayAdapter<String> adapter) {
+    public void showPopular(final ArrayAdapter<String> adapter) {
 
         Call<Example> getPelicula = apiService.Popular(API_ID); //llamada para que nos dé las peliculas más populares
 
@@ -65,18 +68,17 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
                 }
 
                 adapter.clear();
-
                 adapter.addAll(peliDescripcion);
             }
 
             @Override
-            public void onFailure(Throwable t) {// necesario para que el callback no de errores. Informa de fallo
-
+            public void onFailure(Throwable t) { //necesario para que el callback no de errores. Informa de fallo.
+                Log.e("Update Films", Arrays.toString(t.getStackTrace()));
             }
         });
     }
 
-    public void TopRated(final ArrayAdapter<String> adapter) {
+    public void showTopRated(final ArrayAdapter<String> adapter) {
 
         Call<Example> getPelicula = apiService.TopRated(API_ID);//llamada para que nos dé las peliculas más valoradas
 
@@ -97,13 +99,12 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
 
             @Override
             public void onFailure(Throwable t) { // necesario para que el callback no de errores. Informa de fallo
-
+                Log.e("Update Films", Arrays.toString(t.getStackTrace()));
             }
         });
     }
 
     private String getFilmDescription(Result list) { //con este metodo recibimos toda la información de la película que necesitamos.
-
 
         String title = list.getTitle(); // título
         int popular = Math.round(list.getPopularity()); //la popularidad de la película
@@ -121,6 +122,8 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
                 title, overview, age, popular
         ); //nos retorna un String con la información que necesitamos.
     }
+
+
 
 }
 
