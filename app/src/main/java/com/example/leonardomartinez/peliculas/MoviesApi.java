@@ -50,7 +50,7 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
                                                             // le hemos indicado en la interfaz.
     }
 
-    public void showPopular(final ArrayAdapter<String> adapter) {
+    public void showPopular(final NouAdapter adapter) {
 
         Call<Example> getPelicula = apiService.Popular(API_ID); //llamada para que nos dé las peliculas más populares
 
@@ -58,17 +58,10 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
 
             @Override
             public void onResponse(Response<Example> response, Retrofit retrofit) { //y en cuanto obtenemos respuesta, mediante el retrofit:
-
-                ArrayList<String> peliDescripcion = new ArrayList<>(); //creamos un arrayList para guardar los datos de la pelicula
                 Example pelicula = response.body(); //cada objeto de la respuesta será un objeto pelicula...
-
-                for (Result list : pelicula.getResults()) { // ...que mediante este for vamos a recorrer...
-                    String filmDescription = getFilmDescription(list); //...para obtener la descripcion
-                    peliDescripcion.add(filmDescription); // y añadir el string al array.
-                }
-
+                Log.w("Movies", pelicula.getResults().toString());
                 adapter.clear();
-                adapter.addAll(peliDescripcion);
+                adapter.addAll(pelicula.getResults());
             }
 
             @Override
@@ -78,23 +71,17 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
         });
     }
 
-    public void showTopRated(final ArrayAdapter<String> adapter) {
+    public void showTopRated(final NouAdapter adapter) {
 
         Call<Example> getPelicula = apiService.TopRated(API_ID);//llamada para que nos dé las peliculas más valoradas
 
         getPelicula.enqueue(new Callback<Example>() {//las ponemos en la cola...
             @Override
             public void onResponse(Response<Example> response, Retrofit retrofit) {//y en cuanto obtenemos respuesta, mediante el retrofit:
-
-                ArrayList<String> peliDescripcion = new ArrayList<>(); //creamos un arrayList para guardar los datos de la película
                 Example pelicula = response.body();//cada objeto de la respuesta será un objeto pelicula...
-
-                for (Result list : pelicula.getResults() ){// ...que mediante este for vamos a recorrer...
-                    String filmDescription = getFilmDescription(list);//...para obtener la descripcion
-                    peliDescripcion.add(filmDescription);// y añadir el string al array.
-                }
+                Log.w("Movies", pelicula.getResults().toString());
                 adapter.clear();
-                adapter.addAll(peliDescripcion);
+                adapter.addAll(pelicula.getResults());
             }
 
             @Override
@@ -104,7 +91,7 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
         });
     }
 
-    private String getFilmDescription(Result list) { //con este metodo recibimos toda la información de la película que necesitamos.
+    /*private String getFilmDescription(Result list) { //con este metodo recibimos toda la información de la película que necesitamos.
 
         String title = list.getTitle(); // título
         int popular = Math.round(list.getPopularity()); //la popularidad de la película
@@ -118,10 +105,10 @@ public class MoviesApi { //aqui es donde creamos toda la conexion a la API..
             age = "All ages"; //en caso contrato, recomendada para todas las edades
         }
 
-        return String.format("Title: %s\nSynopsis: %s\nRecommended: %s\nPopularity: %s\n",
-                title, overview, age, popular
+        return String.format("%s",
+                title
         ); //nos retorna un String con la información que necesitamos.
-    }
+    }*/
 
 
 

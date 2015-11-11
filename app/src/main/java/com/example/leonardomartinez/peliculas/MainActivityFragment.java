@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.leonardomartinez.peliculas.API.Result;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,10 +23,9 @@ import java.util.Arrays;
  */
 public class MainActivityFragment extends Fragment {
     private ListView moviesLw; // este es el ListView donde visualizaremos los datos.
-    private ArrayList<String> arrayMovies; //aqui guardaremos los datos.
-    private ArrayAdapter<String> adaptador; // el adaptador para el ListView
-    String pelis[] = {"Pelicula A", "Pelicula B", "Pelicula C", "Pelicula D", "Pelicula E", "Pelicula F", "Pelicula G", "Pelicula H",
-            "Pelicula I", "Pelicula J"}; //datos por defecto
+    private ArrayList<Result> arrayMovies; //aqui guardaremos los datos.
+    NouAdapter adaptador; // el adaptador para el ListView
+
 
 
     @Override
@@ -43,10 +44,10 @@ public class MainActivityFragment extends Fragment {
         moviesLw = (ListView) fragment.findViewById(R.id.lista);
 
         //Creamos el arrayList de peliculas y lo llenamos con los datos por defecto
-        arrayMovies = new ArrayList(Arrays.asList(pelis));
+        arrayMovies = new ArrayList<>();
 
         //Creamos el adaptador y setteamos el ListView de películas, con esto 'traducimos' los datos para que sean visibles en el ListView
-        adaptador = new ArrayAdapter<String>(getContext(), R.layout.segundo, R.id.textView, arrayMovies);
+        adaptador = new NouAdapter(getContext(), R.layout.segundo, arrayMovies);
         moviesLw.setAdapter(adaptador);
 
         //Para una pulsación prolongada utilizamos este método. De momento no utilizada en esta aplicación,
