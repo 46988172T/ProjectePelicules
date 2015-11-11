@@ -60,7 +60,7 @@ public class MainActivityFragment extends Fragment {
                 }
             });*/
 
-        return fragment;
+        return fragment;//
     }
 
     @Override
