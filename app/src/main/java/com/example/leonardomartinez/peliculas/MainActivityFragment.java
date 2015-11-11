@@ -57,7 +57,7 @@ public class MainActivityFragment extends Fragment {
                     adaptador.notifyDataSetChanged();
                     return true;
                 }
-            });*/
+            });**/
 
         return fragment;
     }
